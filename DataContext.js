@@ -44,13 +44,14 @@ export const DataProvider = ({ children }) => {
 
     useEffect(() => {
         const init = async () => {
-            await loadData();
-            await autoCheckUpdates();
+            const currentVersion = await loadData();
+            await autoCheckUpdates(currentVersion);
         };
         init();
     }, []);
 
     const loadData = async () => {
+        const bundledVersion = bundledData._metadata?.version || '0';
         try {
             const storedData = await AsyncStorage.getItem('train_data_v2');
             const storedLastChecked = await AsyncStorage.getItem('last_update_check');
@@ -61,12 +62,12 @@ export const DataProvider = ({ children }) => {
 
             if (storedData) {
                 const parsedData = JSON.parse(storedData);
-                const bundledVersion = bundledData._metadata?.version || '0';
                 const storedVersion = parsedData._metadata?.version || '0';
 
                 if (storedVersion > bundledVersion) {
                     setTrainData(parsedData);
                     setVersion(storedVersion);
+                    return storedVersion; // return the actual effective version
                 } else {
                     await AsyncStorage.removeItem('train_data_v2');
                 }
@@ -74,9 +75,11 @@ export const DataProvider = ({ children }) => {
         } catch (error) {
             console.error('Error loading local data:', error);
         }
+        return bundledVersion; // fallback to bundled version
     };
 
-    const autoCheckUpdates = async () => {
+    // currentVersion is passed from loadData() to avoid reading stale React state
+    const autoCheckUpdates = async (currentVersion) => {
         try {
             await fetchNotice();
             const lastCheck = await AsyncStorage.getItem('last_update_check');
@@ -87,7 +90,7 @@ export const DataProvider = ({ children }) => {
                 const response = await fetchWithTimeout(`${BASE_URL}/version.json`, { headers: { 'Cache-Control': 'no-cache' } }, 5000);
                 if (response.ok) {
                     const remote = await response.json();
-                    if (remote.version > version) {
+                    if (remote.version > currentVersion) {
                         setUpdateAvailable(remote.version);
                     }
                     await AsyncStorage.setItem('last_update_check', now.toString());

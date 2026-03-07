@@ -111,7 +111,7 @@ const AboutScreen = () => {
             <View style={styles.appNameContainer}>
               <Text style={styles.appName}>রেল ট্রানজিট</Text>
               <View style={styles.versionPill}>
-                <Text style={styles.versionText}>ভার্সন ২.২</Text>
+                <Text style={styles.versionText}>ভার্সন ২.২.১</Text>
               </View>
             </View>
           </View>

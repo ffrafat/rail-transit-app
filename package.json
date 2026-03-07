@@ -1,7 +1,7 @@
 {
   "name": "rail-transit",
   "license": "0BSD",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
