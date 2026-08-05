@@ -3,7 +3,7 @@
     "name": "রেল ট্রানজিট",
     "slug": "narsingdi-transit",
     "scheme": "com.googleusercontent.apps.1033915031162-f43tahd1c9bh6tr1qs65vf8brf6cmcq1",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "platforms": [
       "android",
       "ios"
@@ -43,7 +43,16 @@
     },
     "plugins": [
       "react-native-rate-app",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 36
+          }
+        }
+      ]
     ],
     "sdkVersion": "54.0.0"
   }
