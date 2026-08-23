@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1086579217996",
+    "project_id": "rail-transit",
+    "storage_bucket": "rail-transit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086579217996:android:ab2bbafd740e70670a46e9",
+        "android_client_info": {
+          "package_name": "cc.rafat.narsingditransit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLaKfY1GedKml-6e6VGD5zsapkI5BjOzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
