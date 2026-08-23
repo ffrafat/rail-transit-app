@@ -133,7 +133,7 @@ const getStyles = (theme, insets) => {
       borderBottomLeftRadius: 32,
       borderBottomRightRadius: 32,
       overflow: 'hidden',
-      backgroundColor: '#075d37',
+      backgroundColor: theme.colors.primary,
     },
     headerBackgroundImage: {
       width: '100%',
@@ -180,7 +180,7 @@ const getStyles = (theme, insets) => {
       width: 44,
       height: 44,
       borderRadius: 12,
-      backgroundColor: 'rgba(65, 171, 93, 0.08)',
+      backgroundColor: theme.colors.iconTint08,
       justifyContent: 'center',
       alignItems: 'center',
       marginBottom: 8,

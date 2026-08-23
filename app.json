@@ -3,7 +3,7 @@
     "name": "রেল ট্রানজিট",
     "slug": "narsingdi-transit",
     "scheme": "com.googleusercontent.apps.1033915031162-f43tahd1c9bh6tr1qs65vf8brf6cmcq1",
-    "version": "2.2.2",
+    "version": "2.2.3",
     "platforms": [
       "android",
       "ios"
@@ -11,24 +11,20 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#064e3b"
-    },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "package": "cc.rafat.narsingditransit",
       "versionCode": 22,
-      "permissions": [],
+      "permissions": [
+        "android.permission.POST_NOTIFICATIONS"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundImage": "./assets/adaptive-bg.png"
       },
-      "edgeToEdgeEnabled": true
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -44,6 +40,7 @@
     "plugins": [
       "react-native-rate-app",
       "expo-font",
+      "@react-native-firebase/app",
       [
         "expo-build-properties",
         {
@@ -52,8 +49,17 @@
             "targetSdkVersion": 36
           }
         }
-      ]
-    ],
-    "sdkVersion": "54.0.0"
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#064e3b"
+        }
+      ],
+      "@react-native-community/datetimepicker",
+      "expo-status-bar"
+    ]
   }
 }

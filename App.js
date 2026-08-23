@@ -12,6 +12,12 @@ import { useFonts } from 'expo-font';
 
 import { DataProvider } from './DataContext';
 import { AlertProvider } from './AlertContext';
+import usePushNotifications from './hooks/usePushNotifications';
+
+function PushNotificationSetup() {
+  usePushNotifications();
+  return null;
+}
 
 // Safe default font setting
 const setGlobalFont = () => {
@@ -92,6 +98,7 @@ function MainApp() {
       <AlertProvider>
         <DataProvider>
           <FavoritesProvider>
+            <PushNotificationSetup />
             <MainNavigator />
           </FavoritesProvider>
         </DataProvider>

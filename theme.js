@@ -42,6 +42,13 @@ const lightBrandColors = {
   surfaceDisabled: 'rgba(25, 29, 23, 0.12)',
   onSurfaceDisabled: 'rgba(25, 29, 23, 0.38)',
   backdrop: 'rgba(66, 73, 63, 0.4)',
+  // Emerald icon-tint scale (see v2_MAINTENANCE_GUIDE.md) — named by their light-mode alpha.
+  iconTint05: 'rgba(65, 171, 93, 0.05)',
+  iconTint08: 'rgba(65, 171, 93, 0.08)',
+  iconTint10: 'rgba(65, 171, 93, 0.10)',
+  iconTint12: 'rgba(65, 171, 93, 0.12)',
+  iconTint15: 'rgba(65, 171, 93, 0.15)',
+  notificationAccent: '#E91E63',
 };
 
 const darkBrandColors = {
@@ -85,6 +92,13 @@ const darkBrandColors = {
   surfaceDisabled: 'rgba(225, 227, 219, 0.12)',
   onSurfaceDisabled: 'rgba(225, 227, 219, 0.38)',
   backdrop: 'rgba(66, 73, 63, 0.4)',
+  // Boosted alpha vs. light mode so the emerald tint stays legible on dark surfaces.
+  iconTint05: 'rgba(65, 171, 93, 0.10)',
+  iconTint08: 'rgba(65, 171, 93, 0.15)',
+  iconTint10: 'rgba(65, 171, 93, 0.19)',
+  iconTint12: 'rgba(65, 171, 93, 0.22)',
+  iconTint15: 'rgba(65, 171, 93, 0.28)',
+  notificationAccent: '#E91E63',
 };
 
 // Configure fonts for all variants

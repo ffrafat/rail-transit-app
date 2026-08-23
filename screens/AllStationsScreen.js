@@ -16,7 +16,6 @@ import { useAppTheme } from '../ThemeContext';
 import { useFavorites } from '../FavoritesContext';
 import { useTrainData } from '../DataContext';
 
-// Station map links from MapScreen
 const stationMapLinks = {
     'ভৈরব': 'https://maps.app.goo.gl/VtrF4pZNouEjXxNq5',
     'দৌলতকান্দি': 'https://maps.app.goo.gl/bZhhDN3uCNr9Vjc96',
@@ -212,7 +211,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
         borderBottomLeftRadius: 32,
         borderBottomRightRadius: 32,
         overflow: 'hidden',
-        backgroundColor: '#075d37', // Fallback base color
+        backgroundColor: theme.colors.primary,
     },
     headerBackgroundImage: {
         width: '100%',

@@ -73,7 +73,7 @@ const TicketBottomNav = () => {
                         >
                             <View style={[
                                 styles.iconContainer,
-                                isActive && { backgroundColor: 'rgba(65, 171, 93, 0.12)' }
+                                isActive && { backgroundColor: theme.colors.iconTint12 }
                             ]}>
                                 <Icon
                                     name={isActive ? item.activeIcon : item.icon}

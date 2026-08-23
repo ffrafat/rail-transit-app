@@ -10,17 +10,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { engToBengaliDigit } from '../utils/bengali';
 
 const stationList = ['ঢাকা', 'তেজগাঁও', 'বিমানবন্দর', 'নরসিংদী', 'মেথিকান্দা', 'দৌলতকান্দি', 'ভৈরব'];
-
-const engToBengaliDigit = (input) => {
-  if (input === undefined || input === null) return '';
-  const digitMap = {
-    '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
-    '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯',
-  };
-  return input.toString().split('').map(char => digitMap[char] || char).join('');
-};
 
 const formatBengaliDate = (timestamp) => {
   if (!timestamp) return 'কখনো নয়';
@@ -111,7 +103,7 @@ const SettingsScreen = () => {
         <Surface style={styles.surface} elevation={1}>
           <View style={styles.headerRow}>
             <View style={styles.iconBoxWrapper}>
-              <View style={[styles.iconBox, { backgroundColor: 'rgba(65, 171, 93, 0.08)' }]}>
+              <View style={[styles.iconBox, { backgroundColor: theme.colors.iconTint08 }]}>
                 <Icon name="cloud-sync-outline" size={22} color={theme.colors.primary} />
               </View>
               {updateAvailable && <View style={styles.redDot} />}
@@ -165,7 +157,7 @@ const SettingsScreen = () => {
         {/* Theme selection card */}
         <Surface style={styles.surface} elevation={1}>
           <View style={styles.headerRow}>
-            <View style={[styles.iconBox, { backgroundColor: 'rgba(65, 171, 93, 0.08)' }]}>
+            <View style={[styles.iconBox, { backgroundColor: theme.colors.iconTint08 }]}>
               <Icon name="palette-outline" size={22} color={theme.colors.primary} />
             </View>
             <Text style={styles.headerText}>কালার মোড</Text>
@@ -198,7 +190,7 @@ const SettingsScreen = () => {
         {/* Hero Theme Selection */}
         <Surface style={styles.surface} elevation={1}>
           <View style={styles.headerRow}>
-            <View style={[styles.iconBox, { backgroundColor: 'rgba(65, 171, 93, 0.08)' }]}>
+            <View style={[styles.iconBox, { backgroundColor: theme.colors.iconTint08 }]}>
               <Icon name="image-outline" size={22} color={theme.colors.primary} />
             </View>
             <Text style={styles.headerText}>ব্যাকগ্রাউন্ড থিম</Text>
@@ -287,7 +279,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     borderBottomLeftRadius: 32,
     borderBottomRightRadius: 32,
     overflow: 'hidden',
-    backgroundColor: '#075d37', // Fallback base color
+    backgroundColor: theme.colors.primary,
   },
   headerBackgroundImage: {
     width: '100%',
@@ -328,7 +320,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 12,
-    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    backgroundColor: theme.colors.iconTint08,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 0,
@@ -344,7 +336,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#E91E63',
+    backgroundColor: theme.colors.notificationAccent,
     borderWidth: 1.5,
     borderColor: theme.colors.surface,
   },
@@ -478,7 +470,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     fontFamily: 'AnekBangla_800ExtraBold',
   },
   newBadge: {
-    backgroundColor: '#E91E63',
+    backgroundColor: theme.colors.notificationAccent,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 12,

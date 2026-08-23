@@ -2,9 +2,13 @@ import React from 'react';
 import { View, StyleSheet, ScrollView, Linking, ImageBackground, Image, Pressable } from 'react-native';
 import { Text, useTheme, Button, Surface } from 'react-native-paper';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 import { useAppTheme } from '../ThemeContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { engToBengaliDigit } from '../utils/bengali';
+
+const appVersion = Constants.expoConfig?.version || '';
 
 const AboutScreen = () => {
   const theme = useTheme();
@@ -111,7 +115,7 @@ const AboutScreen = () => {
             <View style={styles.appNameContainer}>
               <Text style={styles.appName}>রেল ট্রানজিট</Text>
               <View style={styles.versionPill}>
-                <Text style={styles.versionText}>ভার্সন ২.২.১</Text>
+                <Text style={styles.versionText}>ভার্সন {engToBengaliDigit(appVersion)}</Text>
               </View>
             </View>
           </View>
@@ -136,7 +140,7 @@ const AboutScreen = () => {
               এই অ্যাপটি বাংলাদেশ রেলওয়ে বা কোনো সরকারি প্রতিষ্ঠানের অফিশিয়াল অ্যাপ নয়। আমরা বাংলাদেশ রেলওয়ে বা সরকারের সাথে কোনোভাবে যুক্ত নই এবং এই অ্যাপটি কোনো সরকারি প্রতিষ্ঠানের প্রতিনিধিত্ব করে না।
             </Text>
 
-            <View style={[styles.divider, { backgroundColor: 'rgba(0,0,0,0.05)', marginVertical: 12 }]} />
+            <View style={[styles.divider, { marginVertical: 12 }]} />
 
             <View style={styles.disclaimerHeader}>
               <Icon name="database-search-outline" size={20} color={theme.colors.primary} />
@@ -198,7 +202,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     borderBottomLeftRadius: 32,
     borderBottomRightRadius: 32,
     overflow: 'hidden',
-    backgroundColor: '#075d37',
+    backgroundColor: theme.colors.primary,
   },
   headerBackgroundImage: {
     width: '100%',
@@ -256,7 +260,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     letterSpacing: -0.5,
   },
   versionPill: {
-    backgroundColor: 'rgba(65, 171, 93, 0.1)',
+    backgroundColor: theme.colors.iconTint10,
     alignSelf: 'flex-start',
     paddingHorizontal: 8,
     paddingVertical: 2,
@@ -270,7 +274,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: 'rgba(0,0,0,0.05)',
+    backgroundColor: theme.colors.outlineVariant,
     marginVertical: 14,
   },
   compactInfo: {
@@ -295,7 +299,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: 'rgba(65, 171, 93, 0.1)',
+    backgroundColor: theme.colors.iconTint10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -324,7 +328,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     height: 56,
     borderRadius: 28,
     borderWidth: 3,
-    borderColor: 'rgba(65, 171, 93, 0.1)',
+    borderColor: theme.colors.iconTint10,
     marginRight: 14,
   },
   devPic: {
@@ -359,18 +363,18 @@ const getStyles = (theme, insets) => StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 8,
     borderRadius: 12,
-    backgroundColor: 'rgba(65, 171, 93, 0.05)',
+    backgroundColor: theme.colors.iconTint05,
     gap: 6,
   },
   pressed: {
-    backgroundColor: 'rgba(65, 171, 93, 0.15)',
+    backgroundColor: theme.colors.iconTint15,
     opacity: 0.8,
   },
   contactIcon: {
     width: 28,
     height: 28,
     borderRadius: 8,
-    backgroundColor: 'rgba(65, 171, 93, 0.1)',
+    backgroundColor: theme.colors.iconTint10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -429,7 +433,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    backgroundColor: theme.colors.elevation.level2,
     padding: 8,
     borderRadius: 8,
   },

@@ -124,7 +124,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     borderBottomLeftRadius: 32,
     borderBottomRightRadius: 32,
     overflow: 'hidden',
-    backgroundColor: '#075d37',
+    backgroundColor: theme.colors.primary,
   },
   headerBackgroundImage: {
     width: '100%',
@@ -165,7 +165,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     width: 46,
     height: 46,
     borderRadius: 14,
-    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    backgroundColor: theme.colors.iconTint08,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,

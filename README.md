@@ -64,8 +64,4 @@ Information shown is based on publicly available data from:
 ### 👨‍💻 Development
 
 Developed with ❤️ by **[Faisal F Rafat](https://github.com/ffrafat)**.  
-This project is open source under the [MIT License](LICENSE).
-
-- Found a bug? [Open an Issue](https://github.com/ffrafat/rail-transit-app/issues)
-- Want to contribute? [Send a Pull Request](https://github.com/ffrafat/rail-transit-app/pulls)
- Linda
+This is a private, closed-source project. All rights reserved.

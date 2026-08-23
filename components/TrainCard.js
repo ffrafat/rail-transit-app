@@ -4,17 +4,7 @@ import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAppTheme } from '../ThemeContext';
-
-// Bengali digit converter
-const engToBengaliDigit = (input) => {
-  const digitMap = {
-    '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
-    '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯',
-  };
-  return input.toString().split('').map(char => digitMap[char] || char).join('');
-};
-
-
+import { engToBengaliDigit } from '../utils/bengali';
 
 const getBengaliTimeFromString = (time24h) => {
   if (!time24h) return '';
@@ -140,7 +130,7 @@ const TrainCard = ({ train, highlight, passed }) => {
 };
 
 const getStyles = (theme, highlight, passed) => {
-  const cardBg = highlight ? theme.colors.primary : passed ? 'rgba(65, 171, 93, 0.08)' : theme.colors.surface;
+  const cardBg = highlight ? theme.colors.primary : passed ? theme.colors.iconTint08 : theme.colors.surface;
   const textColor = highlight ? '#FFFFFF' : passed ? 'rgba(7, 93, 55, 0.8)' : theme.colors.onSurface;
   const mutedColor = highlight ? 'rgba(255,255,255,0.8)' : passed ? 'rgba(7, 93, 55, 0.6)' : theme.colors.onSurfaceVariant;
 
@@ -156,7 +146,7 @@ const getStyles = (theme, highlight, passed) => {
       shadowOpacity: highlight ? 0.1 : passed ? 0 : 0.08,
       shadowRadius: highlight ? 4 : passed ? 0 : 15,
       borderWidth: 1,
-      borderColor: highlight ? 'rgba(255,255,255,0.2)' : passed ? 'rgba(65, 171, 93, 0.12)' : 'rgba(0,0,0,0.03)',
+      borderColor: highlight ? 'rgba(255,255,255,0.2)' : passed ? theme.colors.iconTint12 : 'rgba(0,0,0,0.03)',
       overflow: 'hidden',
     },
     content: {
@@ -174,7 +164,7 @@ const getStyles = (theme, highlight, passed) => {
       marginBottom: highlight ? 8 : 4,
     },
     trainNoBox: {
-      backgroundColor: highlight ? 'rgba(255,255,255,0.2)' : passed ? 'rgba(65, 171, 93, 0.1)' : theme.colors.primaryContainer,
+      backgroundColor: highlight ? 'rgba(255,255,255,0.2)' : passed ? theme.colors.iconTint10 : theme.colors.primaryContainer,
       paddingHorizontal: 8,
       paddingVertical: 4,
       borderRadius: 6,
@@ -208,7 +198,7 @@ const getStyles = (theme, highlight, passed) => {
       width: 28,
       height: 28,
       borderRadius: 8,
-      backgroundColor: highlight ? 'rgba(255,255,255,0.15)' : 'rgba(65, 171, 93, 0.08)',
+      backgroundColor: highlight ? 'rgba(255,255,255,0.15)' : theme.colors.iconTint08,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -263,7 +253,7 @@ const getStyles = (theme, highlight, passed) => {
       marginLeft: highlight ? 8 : 4,
     },
     btnInfo: {
-      backgroundColor: highlight ? 'rgba(255, 255, 255, 0.2)' : passed ? 'rgba(65, 171, 93, 0.1)' : theme.colors.primaryContainer,
+      backgroundColor: highlight ? 'rgba(255, 255, 255, 0.2)' : passed ? theme.colors.iconTint10 : theme.colors.primaryContainer,
       borderWidth: highlight ? 1 : 0,
       borderColor: highlight ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
       opacity: highlight ? 1 : 0.8,

@@ -40,7 +40,7 @@ const CustomAlert = ({
                         {message && <Text style={[styles.message, { color: theme.colors.onSurfaceVariant }]}>{message}</Text>}
                     </View>
 
-                    <Divider style={styles.divider} />
+                    <Divider style={[styles.divider, { backgroundColor: theme.colors.outlineVariant }]} />
 
                     <View style={styles.buttonRow}>
                         {buttons.length > 0 ? (

@@ -1,11 +1,12 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, ImageBackground } from 'react-native';
+import { View, ScrollView, StyleSheet, ImageBackground, TouchableOpacity, Share } from 'react-native';
 import { Text, useTheme, Surface } from 'react-native-paper';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppTheme } from '../ThemeContext';
 import { useTrainData } from '../DataContext';
+import { toBengaliDigits } from '../utils/bengali';
 
 const TrainDetailsScreen = ({ route, navigation }) => {
   const trainNo = route.params?.trainNo;
@@ -28,24 +29,6 @@ const TrainDetailsScreen = ({ route, navigation }) => {
       setDetails(null);
     }
   }, [trainNo, trains]);
-
-  const BENGALI_DIGITS = {
-    '0': '০',
-    '1': '১',
-    '2': '২',
-    '3': '৩',
-    '4': '৪',
-    '5': '৫',
-    '6': '৬',
-    '7': '৭',
-    '8': '৮',
-    '9': '৯',
-  };
-
-  const toBengaliDigits = (str) => {
-    if (str === undefined || str === null || str === '') return '—';
-    return str.toString().replace(/[0-9]/g, (w) => BENGALI_DIGITS[w]);
-  };
 
   const formatToBengaliTime = (timeStr) => {
     if (!timeStr || timeStr === '—' || timeStr.trim() === '') return '—';
@@ -84,9 +67,50 @@ const TrainDetailsScreen = ({ route, navigation }) => {
     return result.trim();
   };
 
+  const handleShare = async () => {
+    if (!details) return;
+
+    const runsOnText = Array.isArray(details.runsOn) ? details.runsOn.join(', ') : 'তথ্য নেই';
+    const allDays = ['শনি', 'রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র'];
+    const offDaysText = Array.isArray(details.runsOn)
+      ? allDays.filter(d => !details.runsOn.includes(d)).join(', ')
+      : '';
+    const stops = Array.isArray(details.routes) ? details.routes : [];
+    const stopsText = stops
+      .map(s => `📍 ${s.station}\n   আগমন: ${formatToBengaliTime(s.arrival)} | ছাড়ে: ${formatToBengaliTime(s.departure)}`)
+      .join('\n');
+
+    const message = [
+      `🚆 ${details.name} (${toBengaliDigits(trainNo)})`,
+      '',
+      `চলাচলের দিন: ${runsOnText}`,
+      offDaysText ? `বন্ধের দিন: ${offDaysText}বার` : null,
+      '',
+      stopsText,
+      '',
+      `মোট সময়কাল: ${formatToBengaliDuration(details.totalDuration)}`,
+      '',
+      '📲 রেল ট্রানজিট অ্যাপ ডাউনলোড করুন:',
+      'https://play.google.com/store/apps/details?id=cc.rafat.narsingditransit',
+    ].filter(line => line !== null).join('\n');
+
+    try {
+      await Share.share({ message });
+    } catch (e) {
+      console.warn('Share failed:', e);
+    }
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: `${details?.name || 'ট্রেন'} (${toBengaliDigits(trainNo)})`,
+      headerRight: () => (
+        details ? (
+          <TouchableOpacity onPress={handleShare} style={styles.shareBtn} activeOpacity={0.7}>
+            <Icon name="share-variant" size={20} color="#FFFFFF" />
+          </TouchableOpacity>
+        ) : null
+      ),
     });
   }, [navigation, details, trainNo]);
 
@@ -317,6 +341,17 @@ const getStyles = (theme, insets) => StyleSheet.create({
   headerTitleWrapper: {
     height: 30,
   },
+  shareBtn: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderWidth: 0.5,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
   content: {
     padding: 12,
     paddingTop: 12,
@@ -354,7 +389,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 12,
-    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    backgroundColor: theme.colors.iconTint08,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -385,7 +420,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 10,
-    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    backgroundColor: theme.colors.iconTint08,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -416,7 +451,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 10,
-    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    backgroundColor: theme.colors.iconTint08,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -441,7 +476,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 8,
-    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    backgroundColor: theme.colors.iconTint08,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -476,7 +511,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 14,
-    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    backgroundColor: theme.colors.iconTint08,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -495,17 +530,17 @@ const getStyles = (theme, insets) => StyleSheet.create({
   },
   offDayCard: {
     borderRadius: 20,
-    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    backgroundColor: theme.colors.iconTint08,
     padding: 14,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: 'rgba(65, 171, 93, 0.1)',
+    borderColor: theme.colors.iconTint10,
   },
   offDayIconBox: {
     width: 38,
     height: 38,
     borderRadius: 12,
-    backgroundColor: 'rgba(65, 171, 93, 0.12)',
+    backgroundColor: theme.colors.iconTint12,
     justifyContent: 'center',
     alignItems: 'center',
   },

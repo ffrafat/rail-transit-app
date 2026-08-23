@@ -8,6 +8,7 @@ import {
   ScrollView,
   ImageBackground,
   Linking,
+  Share,
 } from 'react-native';
 import {
   Button,
@@ -31,6 +32,7 @@ import useUpdatePrompt from '../hooks/useUpdatePrompt';
 import { useFavorites } from '../FavoritesContext';
 
 import { useTrainData } from '../DataContext';
+import { engToBengaliDigit } from '../utils/bengali';
 
 const bengaliDays = {
   Sunday: 'রবি',
@@ -40,15 +42,6 @@ const bengaliDays = {
   Thursday: 'বৃহস্পতি',
   Friday: 'শুক্র',
   Saturday: 'শনি',
-};
-
-const engToBengaliDigit = (input) => {
-  if (input === undefined || input === null) return '';
-  const digitMap = {
-    '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
-    '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯',
-  };
-  return input.toString().split('').map(char => digitMap[char] || char).join('');
 };
 
 const bengaliMonths = {
@@ -292,20 +285,51 @@ const TimetableScreen = () => {
     return () => clearInterval(interval);
   }, [processTrains, date]);
 
+  const handleShareRoute = async () => {
+    const allTrains = [...trains, ...passedTrains].sort((a, b) => a.__trainTime - b.__trainTime);
+    if (allTrains.length === 0) {
+      showAlert('কোনো ট্রেন নেই', 'শেয়ার করার জন্য এই রুটে কোনো ট্রেন পাওয়া যায়নি।', [], 'alert-circle-outline');
+      return;
+    }
+
+    const lines = allTrains.map(t => {
+      const { time, period } = getBengaliTime(t.__trainTime);
+      const offDay = t['Off Day'] ? ` (${t['Off Day']}বার বন্ধ)` : '';
+      return `🚆 ${t['Train No.']} - ${t['Train Name']}\n   ছাড়ে: ${time} ${period}${offDay}`;
+    }).join('\n\n');
+
+    const message = `${from} → ${to}\nতারিখ: ${getBengaliDate(date)}\n\n${lines}\n\n📲 রেল ট্রানজিট অ্যাপ ডাউনলোড করুন:\nhttps://play.google.com/store/apps/details?id=cc.rafat.narsingditransit`;
+
+    try {
+      await Share.share({ message });
+    } catch (e) {
+      console.warn('Share failed:', e);
+    }
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity
-          style={styles.navDatePill}
-          activeOpacity={0.7}
-          onPress={() => setShowDatePicker(true)}
-        >
-          <RNText style={styles.navDateText}>{getBengaliDate(date)}</RNText>
-          <Icon name="chevron-down" size={14} color="#FFFFFF" />
-        </TouchableOpacity>
+        <View style={styles.navHeaderRight}>
+          <TouchableOpacity
+            style={styles.navShareBtn}
+            activeOpacity={0.7}
+            onPress={handleShareRoute}
+          >
+            <Icon name="share-variant" size={17} color="#FFFFFF" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.navDatePill}
+            activeOpacity={0.7}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <RNText style={styles.navDateText}>{getBengaliDate(date)}</RNText>
+            <Icon name="chevron-down" size={14} color="#FFFFFF" />
+          </TouchableOpacity>
+        </View>
       ),
     });
-  }, [navigation, date, styles]);
+  }, [navigation, date, styles, trains, passedTrains, from, to]);
 
   const getNextDepartureIn = () => {
     if (!trains?.length) return '';
@@ -511,7 +535,7 @@ const getStyles = (theme, insets) => StyleSheet.create({
     borderBottomLeftRadius: 32,
     borderBottomRightRadius: 32,
     overflow: 'hidden',
-    backgroundColor: '#075d37', // Fallback base color
+    backgroundColor: theme.colors.primary,
   },
   headerBackgroundImage: {
     width: '100%',
@@ -520,6 +544,22 @@ const getStyles = (theme, insets) => StyleSheet.create({
     paddingTop: insets.top + 60, // Account for transparent header height
     paddingBottom: 75,
     paddingHorizontal: 20,
+  },
+  navHeaderRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginRight: 10,
+  },
+  navShareBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderWidth: 0.5,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   navDatePill: {
     flexDirection: 'row',
@@ -530,7 +570,6 @@ const getStyles = (theme, insets) => StyleSheet.create({
     borderRadius: 20,
     borderWidth: 0.5,
     borderColor: 'rgba(255, 255, 255, 0.25)',
-    marginRight: 10,
   },
   navDateText: {
     fontSize: 12,
@@ -679,13 +718,13 @@ const getStyles = (theme, insets) => StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
     borderWidth: 1,
-    borderColor: 'rgba(65, 171, 93, 0.08)',
+    borderColor: theme.colors.iconTint08,
   },
   timerIconBox: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: 'rgba(65, 171, 93, 0.08)',
+    backgroundColor: theme.colors.iconTint08,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 14,
@@ -727,13 +766,13 @@ const getStyles = (theme, insets) => StyleSheet.create({
   sectionTitleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(65, 171, 93, 0.12)',
+    backgroundColor: theme.colors.iconTint12,
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 14,
     marginRight: 10,
     borderWidth: 1,
-    borderColor: 'rgba(65, 171, 93, 0.15)',
+    borderColor: theme.colors.iconTint15,
   },
   sectionHeaderText: {
     fontSize: 13,

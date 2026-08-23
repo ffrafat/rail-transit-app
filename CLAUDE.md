@@ -1,10 +1,10 @@
 # Rail Transit (রেল ট্রানজিট)
 
-Unofficial, open-source (MIT) React Native / Expo app for Bangladesh Railway commuters. Solo-maintained by Faisal F Rafat. Published on Play Store as `cc.rafat.narsingditransit`. All user-facing text is Bangla.
+Unofficial React Native / Expo app for Bangladesh Railway commuters. Solo-maintained by Faisal F Rafat, private repository (not open source). Published on Play Store as `cc.rafat.narsingditransit`. All user-facing text is Bangla.
 
 ## Stack
 
-- Expo SDK 54, React Native 0.81, React 19, React Navigation 7 (drawer + native-stack)
+- Expo SDK 57, React Native 0.86, React 19, React Navigation 7 (drawer + native-stack)
 - UI: `react-native-paper` (MD3 theme) + `expo-linear-gradient` + `@expo/vector-icons` (MaterialCommunityIcons)
 - Font: Anek Bangla (loaded via `expo-font` in `App.js`, applied globally through `Text.defaultProps`)
 - Storage: `@react-native-async-storage/async-storage` for all local persistence (no SQL/DB)
