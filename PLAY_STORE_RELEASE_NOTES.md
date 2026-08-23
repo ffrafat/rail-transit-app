@@ -2,6 +2,22 @@
 
 ---
 
+## v2.2.3
+
+### 🇬🇧 English
+- **Share Timetables**: Share a train's full schedule or an entire route's timetable directly via WhatsApp and other apps.
+- **Notifications**: Added support for important service notifications and alerts.
+- **Dark Mode Polish**: Fixed several visual glitches and contrast issues in dark mode.
+- **Android 16 Support**: Updated to meet Google Play's latest Android compatibility requirements.
+
+### 🇧🇩 বাংলা
+- **সময়সূচী শেয়ার**: এখন যেকোনো ট্রেনের সময়সূচী বা পুরো রুটের তালিকা হোয়াটসঅ্যাপসহ যেকোনো অ্যাপে সরাসরি শেয়ার করা যাবে।
+- **নোটিফিকেশন**: গুরুত্বপূর্ণ তথ্য ও সতর্কবার্তার জন্য নোটিফিকেশন সুবিধা যুক্ত হয়েছে।
+- **ডার্ক মোড উন্নত**: ডার্ক মোডের কিছু ভিজ্যুয়াল সমস্যা ও কনট্রাস্ট ত্রুটি সমাধান করা হয়েছে।
+- **অ্যান্ড্রয়েড ১৬ সাপোর্ট**: গুগল প্লে-র সর্বশেষ অ্যান্ড্রয়েড কমপ্যাটিবিলিটি নিয়ম অনুযায়ী আপডেট করা হয়েছে।
+
+---
+
 ## v2.2.1 — Bug Fix Release
 
 ### 🇬🇧 English

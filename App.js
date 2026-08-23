@@ -1,7 +1,8 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import React, { useEffect } from 'react';
-import { Text, View, ActivityIndicator, StatusBar, Image } from 'react-native';
+import { Text, View, ActivityIndicator, Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { lightTheme as customLightTheme, darkTheme as customDarkTheme } from './theme';
@@ -57,7 +58,7 @@ function MainApp() {
         alignItems: 'center',
         padding: 40
       }}>
-        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={bgColor} />
+        <StatusBar style={isDark ? 'light' : 'dark'} />
         <View style={{ marginBottom: 40, alignItems: 'center' }}>
           <Image
             source={require('./assets/icon.png')}

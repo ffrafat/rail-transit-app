@@ -1,5 +1,6 @@
 import React from 'react';
-import { Alert, StatusBar, Linking, View, Text, Image, useColorScheme, ImageBackground, StyleSheet, Pressable } from 'react-native';
+import { Alert, Linking, View, Text, Image, useColorScheme, ImageBackground, StyleSheet, Pressable } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { NavigationContainer, DefaultTheme as NavDefaultTheme, DarkTheme as NavDarkTheme } from '@react-navigation/native';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
@@ -298,10 +299,7 @@ export default function MainNavigator() {
 
   return (
     <>
-      <StatusBar
-        barStyle={isDark ? "light-content" : "light-content"}
-        backgroundColor={heroTheme.statusBar}
-      />
+      <StatusBar style="light" />
       <NavigationContainer theme={MyNavTheme}>
 
         <Stack.Navigator screenOptions={{ headerShown: false }}>

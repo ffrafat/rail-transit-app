@@ -8,7 +8,7 @@
       "android",
       "ios"
     ],
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
@@ -16,7 +16,6 @@
     },
     "android": {
       "package": "cc.rafat.narsingditransit",
-      "versionCode": 22,
       "permissions": [
         "android.permission.POST_NOTIFICATIONS"
       ],
@@ -46,7 +45,9 @@
         {
           "android": {
             "compileSdkVersion": 36,
-            "targetSdkVersion": 36
+            "targetSdkVersion": 36,
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true
           }
         }
       ],
